@@ -25,11 +25,11 @@ def hello():
     return 'Hello, World'
 
 @app.route('/health', methods=['GET'])
-def hello():
+def health():
     return 'check'
 
 @app.route('/', methods=['GET'])
-def hello():
+def home():
     return 'Welcome!'
 
 # Prediction endpoint
