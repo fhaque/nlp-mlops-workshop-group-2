@@ -24,6 +24,14 @@ app = Flask(__name__)
 def hello():
     return 'Hello, World'
 
+@app.route('/health', methods=['GET'])
+def hello():
+    return 'check'
+
+@app.route('/', methods=['GET'])
+def hello():
+    return 'Welcome!'
+
 # Prediction endpoint
 # @app.route('/predict', methods=['POST'])
 # def predict():
