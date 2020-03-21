@@ -89,6 +89,9 @@ train_article_txt_filename = './data/train.article_test.txt'
 train_titles_txt_filename  = './data/train.title_test.txt'
 embedding_file_name='./embeddings/glove.6B.50d.w2vformat.txt'
 
+max_sequence_length = 40
+max_label_length = 15
+
 ########### LOAD DATA ####################
 #df_train = pd.read_csv(train_csv)
 #df_train.head()
@@ -102,6 +105,7 @@ articles_txt = []
 labels_txt = []
 
 # read articles and titles
+            #------- Read texts from file
 i_count = 0
 while True: 
     i_count += 1
@@ -110,12 +114,13 @@ while True:
     if not line: break
 #    print("Line{}: {}".format(count, line.strip()))   
 articles_file.close() 
+            #------- Read titles from file
 print( f"{BlueColor}Articles readed {ResetColor}{i_count}" )
 i_count = 0
 while True: 
     i_count += 1
     line = titles_file.readline() 
-    labels_txt.append(text_to_wordlist(line))
+    labels_txt.append('<STA>'+text_to_wordlist(line)+'<END>')
     if not line: break
 #    print("Line{}: {}".format(count, line.strip()))   
 titles_file.close() 
@@ -148,7 +153,7 @@ print(f'{BlueColor}Found {YellowColor}{len(word_index)}{BlueColor} unique tokens
 #print(f'{word_index}') # uncomment to see the word dictionary
 #exit()
 # padding/truncating sentences to the same length of 30 words
-max_sequence_length = 40
+
 
 # Create tensors of sequences and send them to GPU
 # data1: data corresponding to articles 
@@ -158,9 +163,9 @@ if cuda:
 else:
     data = torch.tensor(pad_sequences(sequences_1, maxlen=max_sequence_length))  
 if cuda: 
-    labels = torch.tensor(pad_sequences(labels_x, maxlen=max_sequence_length)).cuda()
+    labels = torch.tensor(pad_sequences(labels_x, maxlen=max_label_length)).cuda()
 else:
-    labels = torch.tensor(pad_sequences(labels_x, maxlen=max_sequence_length))         
+    labels = torch.tensor(pad_sequences(labels_x, maxlen=max_label_length))         
 # Test if conversion of words to indices the same in articles and titles:
 wordtest = 'account' # Any word that is available in both texts
 print(f"{BlueColor}Check conversion to indeces works: {ResetColor}")
@@ -301,7 +306,8 @@ class GRU(nn.Module):
         
         # TODO: complete the forward propagation for LSTM
         gru_out, hidden = self.gru(enc_embeds)# NOTE: assignment section (4)
-    
+        gru_out, hidden = self.gru(gru_out)# NOTE: assignment section (4)
+        ###### the following outputs
         # stack up lstm outputs
         # creating new variables for the hidden state, otherwise
         # we'd backprop through the entire training history
@@ -309,17 +315,18 @@ class GRU(nn.Module):
         
         # dropout and fully-connected layer
         # TODO: complete the drop out layer
-        out = self.dropout(gru_out) # NOTE: assignment section (5)
-        out = self.fc(out)
-        
+        # out = self.dropout(gru_out) # NOTE: assignment section (5)
+        # out = self.fc(out)
+        ?????????????????
         # ===== Decoder =====
         #dec_embeds = 
         #lstm_out, hidden = self.lstm(enc_embeds)
 
         gru_out, hidden = self.gru(hidden)# hidden state from GRU to decoder
         # sigmoid function
-        sig_out = self.sig(out)
-        
+        #sig_out = self.sig(out)
+        softmax?
+
         # reshape to be batch_size first
         sig_out = sig_out.view(batch_size, -1)
         # convert 2D to 1D
