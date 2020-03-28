@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 # import mlflow.pyfunc
 # import pandas as pd
 
@@ -20,9 +20,9 @@ app = Flask(__name__)
 
 # 	return jsonify(load_meta_data)
 
-@app.route('/hello', methods=['GET'])
-def hello():
-    return 'Hello, World'
+# @app.route('/hello', methods=['GET'])
+# def hello():
+#     return 'Hello, World'
 
 @app.route('/health', methods=['GET'])
 def health():
@@ -30,7 +30,11 @@ def health():
 
 @app.route('/', methods=['GET'])
 def home():
-    return 'Welcome!'
+    return render_template('index.html')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    return 'PREDICTION'
 
 # Prediction endpoint
 # @app.route('/predict', methods=['POST'])
