@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Group 2: Text Summarizer</title>
+        <style></style>
+        
+    </head>
+    <body>
+        <h1 class="main__title">Group 2: Text Summarizer</h1>
+        <div class="input-area">
+            <form class="input-area__form" id="text-form">
+                <label class="input-area__label" for="text-content">Enter Text to Summarize here:</label>
+                <textarea id="text-content" class="input-area__field"></textarea>
+                <input type="submit" />
+            </form>
+        </div>
+        <div class="summary">
+            <p class="summary__label">Text Summary:</p>
+            <p id="text-summary" class="summary__text"></p>
+        </div>
+    </body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{{url_for('static', filename='index.js')}}"></script>
+</html>
