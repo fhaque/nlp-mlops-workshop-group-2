@@ -10,10 +10,10 @@ class TwitterService():
             keys = json.load(f)
 
         self._api = self._connect_to_twitter(
-            keys.consumer_key,
-            keys.consumer_secret,
-            keys.access_token,
-            keys.access_token_secret
+            keys['consumer_key'],
+            keys['consumer_secret'],
+            keys['access_token'],
+            keys['access_token_secret']
         )
 
     def _connect_to_twitter(self, consumer_key, consumer_secret, access_token, access_token_secret, **kwargs):
