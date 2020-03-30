@@ -1,2 +1,6 @@
 Flask>=1.1.1
 pandas>=1.0.1
+python-twitter
+newspaper3k
+pyshorteners
+requests
