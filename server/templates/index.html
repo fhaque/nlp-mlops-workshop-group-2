@@ -1,23 +1,199 @@
 <html>
     <head>
         <title>Group 2: Text Summarizer</title>
-        <style></style>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+        <link rel="stylesheet" type="text/css" href="https://code.divshot.com/geo-bootstrap/swatch/bootstrap.min.css">
+        <style>
+            blockquote.twitter-tweet {
+                display: inline-block;
+                font-family: "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif;
+                font-size: 12px;
+                font-weight: bold;
+                line-height: 16px;
+                border-color: #eee #ddd #bbb;
+                border-radius: 5px;
+                border-style: solid;
+                border-width: 1px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+                margin: 10px 5px;
+                padding: 0 16px 16px 16px;
+                max-width: 468px;
+            }
+
+            blockquote.twitter-tweet p {
+                font-size: 16px;
+                font-weight: normal;
+                line-height: 20px;
+            }
+
+            blockquote.twitter-tweet a {
+                color: inherit;
+                font-weight: normal;
+                text-decoration: none;
+                outline: 0 none;
+            }
+
+            blockquote.twitter-tweet a:hover,
+            blockquote.twitter-tweet a:focus {
+                text-decoration: underline;
+            }
+        
+            body {
+                background-image: url('https://media1.tenor.com/images/d9423cad431e098e64bdccdab0c06541/tenor.gif?itemid=12160833');
+                background-size: 10%;
+                background-repeat: repeat;
+            }
+
+            main {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+            }
+            .wrapper {
+                display: flex;
+                width: 100%;
+                max-width: 800px;
+                height: auto;
+                justify-content: center;
+                flex-wrap: wrap;
+                padding: 0px 20px;
+
+                background-color: rgb(46, 153, 153, 0.8);
+            }
+
+            .main__title {
+                display: block;
+                width: 100%;
+                text-align: center;
+            }
+
+            .main__instructions {
+                max-width: 800px;
+                padding: 20px;
+            }
+            
+            .input-area {
+                /* display: flex;
+                flex-wrap: wrap;
+                justify-content: center; */
+                width: 100%;
+            }
+            .input-area__form {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .input-area__label {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding-bottom: 10px;
+            }
+
+            input[type="text"].input-area__field {
+                display: block;
+                width: 100%;
+                padding: 20px;
+                max-width: 800px;
+                min-width: 20px;
+
+                color: #a7a7a7;
+            }
+
+            .btn-container {
+                display: flex;
+                width: 20%;
+                min-width: 200px;
+                justify-content: space-around;
+                padding-top: 20px;
+            }
+
+            .btn-container__submit-btn {
+                width: 100%;
+                min-width: 140px;
+                text-align: center;
+            }
+
+            .btn-container__clear-btn {
+                width: 100%;
+                min-width: 140px;
+                text-align: center;
+            }
+
+            .summary {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .summary__label {
+                text-align: center;
+                width: 100%;
+                padding: 20px;
+            }
+
+        </style>
         
     </head>
     <body>
-        <h1 class="main__title">Group 2: Text Summarizer</h1>
-        <div class="input-area">
-            <form class="input-area__form" id="text-form">
-                <label class="input-area__label" for="text-content">Enter Text to Summarize here:</label>
-                <textarea id="text-content" class="input-area__field"></textarea>
-                <input type="submit" />
-            </form>
-        </div>
-        <div class="summary">
-            <p class="summary__label">Text Summary:</p>
-            <p id="text-summary" class="summary__text"></p>
-        </div>
+        <main>
+            <div class = "wrapper">
+                <h1 class="main__title">Trump Readable News Format</h1>
+                <p class="main__instructions">
+                    Do you want your boring news article in Trump Readable Format (TRF)? You're in luck!
+                    Paste the News Article URL below and we will generate a <strong>Tweeted</strong> version of the article!
+                </p>
+                <div class="input-area">
+                    <form class="input-area__form" id="text-form">
+                        <label class="input-area__label" for="text-content">Enter URL of an article:</label>
+                        <input 
+                            type="text" 
+                            id="text-content"
+                            class="input-area__field"
+                            placeholder="Enter URL"
+                        >
+                        </input>
+                        <div class="input-area__btn-container btn-container">
+                            <input type="submit" class="btn-container__submit-btn btn btn-primary btn-large" />
+                            <input
+                                type="reset"
+                                class="btn-container__clear-btn btn"
+                            >
+                        </input>
+                        </div>
+                    </form>
+                </div>
+                <div class="summary">
+                    <h2 class="summary__label">Summarized Article Tweet:</h2>
+                    <!-- <a id="tweet-url" lass="summary__link" href="#">Link to Tweet</a>
+                    <p id="text-summary" class="summary__text"></p> -->
+                    <p id="summary-error" class="summary__error"></p>
+                    <div id="embedded-tweet"></div>
+                </div>
+            </div>
+        </main>
     </body>
+    <script>
+        window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+              t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+          
+            t._e = [];
+            t.ready = function(f) {
+              t._e.push(f);
+            };
+          
+            return t;
+        }(document, "script", "twitter-wjs"));
+    </script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="{{url_for('static', filename='index.js')}}"></script>
 </html>
