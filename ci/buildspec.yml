@@ -15,7 +15,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - printf '{"consumer_key":"%s","consumer_secret":"%s","access_token":"%s","access_token_secret":"%s"}' $TWITTER_CONSUMER_KEY $TWITTER_CONSUMER_SECRET $TWITTER_ACCESS_TOKEN $TWITTER_ACCESS_TOKEN_SECRET > ./secrets/twitter_keys.json
+      - printf '{"consumer_key":"%s","consumer_secret":"%s","access_token":"%s","access_token_secret":"%s"}' $TWITTER_CONSUMER_KEY $TWITTER_CONSUMER_SECRET $TWITTER_ACCESS_TOKEN $TWITTER_ACCESS_TOKEN_SECRET > server/secrets/twitter_keys.json
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
