@@ -12,12 +12,12 @@ phases:
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+      - Download model...
+      - aws s3 cp s3://text-sum-nlp-mlops-bucket/model/0003699.tar server/model/data/saved_models/0003699.tar
   build:
     commands:
       - echo Build started on `date`
       - printf '{"consumer_key":"%s","consumer_secret":"%s","access_token":"%s","access_token_secret":"%s"}' $TWITTER_CONSUMER_KEY $TWITTER_CONSUMER_SECRET $TWITTER_ACCESS_TOKEN $TWITTER_ACCESS_TOKEN_SECRET > server/secrets/twitter_keys.json
-      - Download model...
-      - aws s3 cp s3://text-sum-nlp-mlops-bucket/model/0003699.tar server/model/data/saved_models/0003699.tar
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
