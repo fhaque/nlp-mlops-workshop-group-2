@@ -64,7 +64,7 @@ def predict():
     try:
         article = article_service.get_article(article_url)
         print(article.text)
-        summary = model_service.predict2(article.text)
+        summary = model_service.predict(article.text)
         tweet_content = create_tweet_content(article_url, summary)
         print("Tweet Content: ", tweet_content)
         status = twitter_service.tweet(tweet_content)
