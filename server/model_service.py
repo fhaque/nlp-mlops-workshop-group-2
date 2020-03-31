@@ -11,6 +11,6 @@ class ModelService():
         pass
     
     def predict(self, data):
-        article_summary, out_of_vocab =  summarise_it(text)
+        article_summary, out_of_vocab =  summarise_it(data)
         # article_summary, out_of_vocab = predict_from_text(data, self.model)
         return article_summary
