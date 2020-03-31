@@ -14,6 +14,7 @@ phases:
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
       - Download model...
       - mkdir -p server/model/data/saved_models
+      - aws s3 ls s3://text-sum-nlp-mlops-bucket/model
       - aws s3 cp s3://text-sum-nlp-mlops-bucket/model/0003699.tar server/model/data/saved_models/0003699.tar
   build:
     commands:
