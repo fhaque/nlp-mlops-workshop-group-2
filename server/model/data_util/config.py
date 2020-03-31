@@ -1,7 +1,7 @@
-train_data_path = 	"data/chunked/train/train_*"
-valid_data_path = 	"data/chunked/valid/valid_*"
-test_data_path = 	"data/chunked/test/test_*"
-vocab_path = 		"data/vocab"
+train_data_path = 	"model/data/chunked/train/train_*"
+valid_data_path = 	"model/data/chunked/valid/valid_*"
+test_data_path = 	"model/data/chunked/test/test_*"
+vocab_path = 		"model/data/vocab"
 
 
 # Hyperparameters
@@ -22,7 +22,7 @@ eps = 1e-12
 max_iterations = 500000
 
 
-save_model_path = "data/saved_models"
+save_model_path = "model/data/saved_models"
 
 intra_encoder = True
 intra_decoder = True

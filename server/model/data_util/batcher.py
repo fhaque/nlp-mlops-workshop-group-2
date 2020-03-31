@@ -210,7 +210,7 @@ class Batcher(object):
         #try: 
           #with open("article.txt","r") as file: article = file.readline().lower(); file.close()
         #except:  
-        article = Batcher.initial_article
+        article = Batcher.initial_article.lower()
           #'!!!!! ATTENTION: No artilce.txt \n!!DEFAULT TEXT!! The biggest threat to Trump, then, is an economic downturn that reverses the recent job and wage gains and triggers a stock-market selloff; but forecasters see low odds for this scenario. Another issue will be the mood among voters in 8-10 swing states. Trump remains a sharply polarizing figure, and a re-election bid is a referendum on the incumbent.'
         abstract = ''      
       except StopIteration: # if there are no more examples:
