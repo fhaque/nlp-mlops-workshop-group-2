@@ -1,7 +1,7 @@
 # import mlflow.pyfunc
 # import pandas as pd
 from model.data_util import config
-from model.eval import summarise_it, load_model, predict_from_text
+from model.eval import summarise_it
 
 
 class ModelService():
@@ -11,6 +11,6 @@ class ModelService():
         pass
     
     def predict(self, data):
-        # article_summary, out_of_vocab =  summarise_it(text)
-        article_summary, out_of_vocab = predict_from_text(data, self.model)
+        article_summary, out_of_vocab =  summarise_it(text)
+        # article_summary, out_of_vocab = predict_from_text(data, self.model)
         return article_summary
