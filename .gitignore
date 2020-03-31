@@ -2,4 +2,4 @@
 .vscode
 
 server/nltk_data/
-server/__pycache__/
+__pycache__/
